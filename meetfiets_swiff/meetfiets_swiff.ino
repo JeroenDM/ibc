@@ -176,10 +176,10 @@ void sendData() {
   Serial.print("\t");
   Serial.print(Tas, 4);
   Serial.print("\t");
-  Serial.print(Ibat, 1);
-  Serial.print("\t");
-  Serial.print(Vbat, 2);
-  Serial.print("\t");
+//  Serial.print(Ibat, 1);
+//  Serial.print("\t");
+//  Serial.print(Vbat, 2);
+//  Serial.print("\t");
   Serial.print(Ras, 2);
   Serial.print("\t");
   Serial.print(Vbike, 2);
@@ -194,12 +194,12 @@ void readAnalogSensors() {
   Tas = (analogRead(A2)/1023.0*referenceVoltage - 2.50 + torqueOffset)*202.9; //0.006V per Nm
   
   // Stroom inlezen
-  Ibat = -24*(analogRead(A1) - 512)/1023.0*referenceVoltage + currentOffset;  // [A]
-  Ibat = -24*(analogRead(A1) - 512)/1023.0*referenceVoltage + currentOffset;  // [A]
+  //Ibat = -24*(analogRead(A1) - 512)/1023.0*referenceVoltage + currentOffset;  // [A]
+  //Ibat = -24*(analogRead(A1) - 512)/1023.0*referenceVoltage + currentOffset;  // [A]
   
   // Spanningmeter op basis van spanningdeler met Vmax = 60V->5V op arduino ingang
-  Vbat = analogRead(A0)/1023.0*referenceVoltage*11.675;  // [V]
-  Vbat = analogRead(A0)/1023.0*referenceVoltage*11.675;  // [V]
+  //Vbat = analogRead(A0)/1023.0*referenceVoltage*11.675;  // [V]
+  //Vbat = analogRead(A0)/1023.0*referenceVoltage*11.675;  // [V]
   
   // Tijdstip van opnemen data opslaan, een kleine onnauwkeurigheid
   // door de eindige tijd dat het in beslag neemt om de data in te lezen
@@ -240,15 +240,14 @@ boolean saveDataToSD() {
     dataFile.print("\t");
     dataFile.print(Tas, 2);
     dataFile.print("\t");
-    dataFile.print(Ibat, 1);
-    dataFile.print("\t");
-    dataFile.print(Vbat, 2);
-    dataFile.print("\t");
+//    dataFile.print(Ibat, 1);
+//    dataFile.print("\t");
+//    dataFile.print(Vbat, 2);
+//    dataFile.print("\t");
     dataFile.print(Ras, 2);
     dataFile.print("\t");
     dataFile.print(Vbike, 2);
-    dataFile.print("\t");
-    dataFile.println(Temp, 1);
+    dataFile.println();
     dataFile.close();
     }
   else {
