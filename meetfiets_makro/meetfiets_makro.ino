@@ -212,33 +212,21 @@ void ckeckPulses() {
       time1 = millis();
       // Max trapfrequentie 120 rpm -> 2 rps dus max 24 puslen per s -> Tmin ~ 0.04s = 40ms
       if ((time1 - timeOld1) > 20) {
-        // Min trapfrequentie 10 rpm -> 1/6 rps dus min 2 pulsen per s -> Tmax = 0.5s = 500ms
-        if ((time1 - timeOld1) < 500){
         Ras = (time1 - timeOld1)/1000.0;
         Ras = theta/Ras;
         Ras = Ras*60/2/3.1415; // Convert to rpm
         timeOld1 = time1;
-        }
-        else {
-          Ras = 0;
-        }
       }
       flag1 = false; // Eventueel via hulpvariabele en interrupts uitzetten als fouten
     }
     
     if (flag2) {
       time2 = millis();
-      // Max snelheid 40 km/h ~ 11m/s ~ 5.3 pulsen per s Tmin = 190ms
+      // Om debouncing te vermijden is 100ms aangeraden
       if ((time2 - timeOld2) > 100) {
-        // Min snelheid 3.6 km/h ~ 1m/s ~ 1/2 pulsen per s Tmin = 2000ms
-        if ((time2 - timeOld2) < 2000){
         Vbike = (time2 - timeOld2)/1000.0;
         Vbike = wheelCirc/Vbike*3.6;
         timeOld2 = time2;
-        }
-        else {
-          Vbike = 0;
-        }
       }
       flag2 = false; // Eventueel via hulpvariabele en interrupts uitzetten als fouten
     }
