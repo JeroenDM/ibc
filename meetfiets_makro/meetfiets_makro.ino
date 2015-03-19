@@ -259,9 +259,7 @@ boolean saveDataToSD() {
     dataFile.print(Ras, 2);
     dataFile.print("\t");
     dataFile.print(Vbike, 2);
-    dataFile.print("\t");
-    dataFile.println(Temp, 1);
-    dataFile.close();
+    dataFile.println();
     }
   else {
     if(serialOutput) Serial.println("Error in opening file on SD card");
