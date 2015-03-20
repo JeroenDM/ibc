@@ -28,6 +28,9 @@ float Ras = 0;    // Trapsnelheid gemeten aan trapas
 float Vbike = 0;  // Snelheid van de fiets
 float Temp = 0;   // Omgevingstemperatuur
 
+// Vectoren voor lopend gemiddelde
+float Tas_array[20];
+
 // Functionele variabelen
 // Zet deze variable op true als je output over de seriele poort wilt
 // NIET aanzetten als er geen usb kabel is aangesloten en je wil dat het programma werkt
@@ -143,6 +146,7 @@ void loop() {
   // Schrijf een regel met data over seriele poort indien gewenst
   if(serialOutput) {
     sendData();
+    checkRam();
   }
   
 }
@@ -324,5 +328,19 @@ boolean checkUSB(unsigned int waitTime) {
 
 void clearData() {
   if(SD.remove("datalog.txt")) Serial.println("Data deleted from sd card.");
+}
+
+// Controleer hoeveel geheugen er nog vrij is
+// code afkomstig van http://playground.arduino.cc/code/AvailableMemory
+int freeRam () {
+  extern int __heap_start, *__brkval; 
+  int v; 
+  return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval); 
+}
+
+void checkRam () {
+  Serial.print("Free sRAM: ");
+  Serial.print(freeRam());
+  Serial.println(" bytes");
 }
   
