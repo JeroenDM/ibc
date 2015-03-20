@@ -45,7 +45,11 @@ unsigned long currentTime;
 // Constanten
 const float theta = 2*3.1415/12; // Hoek in rad tussen twee pulsen bij trapas
 const float wheelCirc = 2.1; // Omtrek van het fietswiel met snelheidsensor
-const int chipSelect = 8;
+// change this to match your SD shield or module;
+// Arduino Ethernet shield: pin 4
+// Adafruit SD shields and modules: pin 10
+// Sparkfun SD shield: pin 8
+const int chipSelect = 10;
 const float referenceVoltage = 5.00;
 const float currentOffset = 0.2;
 const float torqueOffset = -0.1;  // IN VOLT
