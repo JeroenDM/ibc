@@ -31,12 +31,16 @@ void readAnalogSensors2(int index) {
   Tas_sum += Tas_array[index];
   
   // Stroom inlezen
-  Ibat = -24*(analogRead(A1) - 512)/1023.0*referenceVoltage + currentOffset;  // [A]
-  Ibat = -24*(analogRead(A1) - 512)/1023.0*referenceVoltage + currentOffset;  // [A]
+  analogRead(A1);
+  Ibat_sum -= Ibat_array[index];
+  Ibat_array[index] = -24*(analogRead(A1) - 512)/1023.0*referenceVoltage + currentOffset;  // [A]
+  Ibat_sum += Ibat_array[index];
   
   // Spanningmeter op basis van spanningdeler met Vmax = 60V->5V op arduino ingang
-  Vbat = analogRead(A0)/1023.0*referenceVoltage*11.675;  // [V]
-  Vbat = analogRead(A0)/1023.0*referenceVoltage*11.675;  // [V]  
+  analogRead(A0);
+  Vbat_sum -= Vbat_array[index];
+  Vbat_array[index] = analogRead(A0)/1023.0*referenceVoltage*11.675;  // [V]
+  Vbat_sum += Vbat_array[index]; 
 }
 
 void ckeckPulses() {

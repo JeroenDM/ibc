@@ -32,6 +32,10 @@ const int ma_length = 20;
 // Vectoren voor lopend gemiddelde
 float Tas_array[ma_length];
 float Tas_sum;
+float Ibat_array[ma_length];
+float Ibat_sum;
+float Vbat_array[ma_length];
+float Vbat_sum;
 
 // Functionele variabelen
 // Zet deze variable op true als je output over de seriele poort wilt
@@ -117,6 +121,8 @@ void loop() {
   }
   
   Tas = Tas_sum/ma_length;
+  Ibat = Ibat_sum/ma_length;
+  Vbat = Vbat_sum/ma_length;
   time = millis()/1000.0;
   
   // Stuur een regel met data naar SD card
