@@ -90,38 +90,7 @@ void setup() {
   initSD();
   
   // Vraag of de data ingelezen moet worden en voer daarna gewoon loop() uit
-  if(serialOutput) {
-    Serial.println("Type r if you want to read the data on the sd card.");
-    Serial.println("Type n if you want to continue with measuring.");
-    Serial.println("Type d to delete data from SD card.");
-    boolean wait = true;
-    while(wait) {
-      if (Serial.available() > 0) {
-        char antwoord = Serial.read();
-        if (antwoord == 'r') {
-          readSD();
-          wait = true;
-          Serial.println("Type r if you want to read the data on the sd card.");
-          Serial.println("Type n if you want to continue with measuring.");
-          Serial.println("Type d to delete data from SD card.");
-        }
-        else if (antwoord == 'd') {
-          clearData();
-          wait = true;
-          Serial.println("Type r if you want to read the data on the sd card.");
-          Serial.println("Type n if you want to continue with measuring.");
-          Serial.println("Type d to delete data from SD card.");
-        }
-        else if (antwoord == 'n') {
-          Serial.println("You don't want to read sd so we continue");
-          wait = false;
-        }
-        else {
-          Serial.println("You have to type 'r' or 'n'.");
-        }
-      }
-    }
-  }
+  askUser();
   
   if(serialOutput) {    
     // Print labels voor data
@@ -135,13 +104,13 @@ void setup() {
 //------------------------------------------------------------------------------------------
 void loop() {
   for (int i=0; i<20; i++) {
+    previousTime = currentTime;
     while((currentTime - previousTime) < 50) {
       // check of er pulsen zijn geweest van de rotatiesensoren
       ckeckPulses();
       
       currentTime = millis();
     }
-    previousTime = currentTime;
     
     // Lees de analoge sensoren in
     readAnalogSensors2(i);  
