@@ -134,19 +134,21 @@ void setup() {
 //-----------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------
 void loop() {
-  // Deze lus word elke seconde (1000ms) verlaten om de data weg te schrijven
-  while((currentTime - previousTime) < 1000) {
-    // check of er pulsen zijn geweest van de rotatiesensoren
-    ckeckPulses();
+  for (int i=0; i<20; i++) {
+    while((currentTime - previousTime) < 50) {
+      // check of er pulsen zijn geweest van de rotatiesensoren
+      ckeckPulses();
+      
+      currentTime = millis();
+    }
+    previousTime = currentTime;
     
-    currentTime = millis();
+    // Lees de analoge sensoren in
+    readAnalogSensors2(i);  
   }
-  previousTime = currentTime;
   
-  // Lees de analoge sensoren in
-  int i =  0;
-  readAnalogSensors2(i);
-  Tas = Tas_array[i];
+  Tas = Tas_sum/ma_length;
+  time = millis()/1000.0;
   
   // Stuur een regel met data naar SD card
   saveDataToSD();

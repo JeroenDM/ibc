@@ -36,11 +36,7 @@ void readAnalogSensors2(int index) {
   
   // Spanningmeter op basis van spanningdeler met Vmax = 60V->5V op arduino ingang
   Vbat = analogRead(A0)/1023.0*referenceVoltage*11.675;  // [V]
-  Vbat = analogRead(A0)/1023.0*referenceVoltage*11.675;  // [V]
-  
-  // Tijdstip van opnemen data opslaan, een kleine onnauwkeurigheid
-  // door de eindige tijd dat het in beslag neemt om de data in te lezen
-  time = millis()/1000.0;
+  Vbat = analogRead(A0)/1023.0*referenceVoltage*11.675;  // [V]  
 }
 
 void ckeckPulses() {
