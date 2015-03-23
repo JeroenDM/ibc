@@ -3,11 +3,15 @@
 */
 
 void setup() {
-  // put your setup code here, to run once:
+  Serial.begin(9600);
 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly: 
-  
+  float voltage = analogRead(A0)/1023.0*5;
+  float voltage2 = analogRead(A1)/1023.0*3;
+  Serial.print(voltage);
+  Serial.print("\t");
+  Serial.println(voltage2);
+  delay(200);  
 }
