@@ -15,12 +15,15 @@
 
 #define disk1 0x50 //Address on the i2c bus for eeprom 24LC64
 
-const byte buttonPinRed = 5;  // "stop measuring" button
+// define input pins
 const byte sensorPin = 2;     // "reed switch" input
-const byte buttonPin = 3;     // "start measuring / send data to pc" button
-const byte switchPin = 4;     // select "measuring / pc" mode
-const byte ledPinRed = 9;     // "reed contact closed" red led
-const byte ledPin = 8;        // "measuring active" green led
+const byte switchPin = 3;     // select "measuring / pc" mode
+const byte buttonPinRed = 4;  // "stop measuring" button
+const byte buttonPin = 5;     // "start measuring / send data to pc" button
+
+// define output pins
+const byte ledPin = 6;        // "measuring active" green led
+const byte ledPinRed = 7;     // "reed contact closed" red led
 
 boolean sensor = 0;
 boolean button = 0;
