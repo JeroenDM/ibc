@@ -1,17 +1,26 @@
-#include <Wire.h> // Library om over i2c bus te communiceren
-#include <EEPROMex.h>
-#include <EEPROMVar.h> // Library for internal eeprom
+/* Arduino code to record reed contact events and store them in the internal memory
+    Fast and no sd-card module needed, but limited data points can be saved (255 bytes)
+    I yet have to draw a scematic of the hardware unit
+    
+  Jeroen De Maeyer
+  15/04/2016
+  A big thank you to the online Arduino community for the infinite amout of recources out there!
+*/
+
+#include <Wire.h>       // Library to communicate over i2c bus
+#include <EEPROMex.h>   // Extended eeprom library with more functions
+#include <EEPROMVar.h>  // Library for internal eeprom
 
 
 
-#define disk1 0x50 //Adres op de i2c bus van eeprom 24LC64
+#define disk1 0x50 //Address on the i2c bus for eeprom 24LC64
 
-const byte buttonPinRed = 5;
-const byte sensorPin = 2;
-const byte buttonPin = 3;
-const byte switchPin = 4;
-const byte ledPinRed = 9;
-const byte ledPin = 8;
+const byte buttonPinRed = 5;  // "stop measuring" button
+const byte sensorPin = 2;     // "reed switch" input
+const byte buttonPin = 3;     // "start measuring / send data to pc" button
+const byte switchPin = 4;     // select "measuring / pc" mode
+const byte ledPinRed = 9;     // "reed contact closed" red led
+const byte ledPin = 8;        // "measuring active" green led
 
 boolean sensor = 0;
 boolean button = 0;
@@ -33,10 +42,14 @@ void setup() {
   Serial.begin(9600);
   Wire.begin();
   
-  pinMode(sensorPin, INPUT_PULLUP);
-  pinMode(buttonPin, INPUT);
-  pinMode(switchPin, INPUT);
+  pinMode(sensorPin, INPUT_PULLUP); // reed contact directly connected to Arduino
+  pinMode(buttonPin, INPUT);        // external pull down resistor
+  pinMode(buttonPinRed, INPUT);     // external pull down resistor
+  pinMode(switchPin, INPUT);        // external pull down resistor
+  
+  pinMode(ledPinRed, OUTPUT);
   pinMode(ledPin, OUTPUT);
+  
   digitalWrite(ledPin, LOW);
 }
 
@@ -86,7 +99,7 @@ void measure() {
       
       timeOld = time;
       counter++;
-      delay(10); // Vertraging om invloed van ruis te beperken
+      delay(10); // Delay to avoid to much noise infuence
       
       digitalWrite(ledPinRed, LOW);
     }
